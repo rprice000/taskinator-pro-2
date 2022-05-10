@@ -63,7 +63,6 @@ $(".list-group").on("click", "p", function() {
     .val(text);
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
-  console.log(text);
 });
 //////////////////////////////////////////////////////////EVENT LISTENER FOR WHEN CLICK TO EDIT A TASK END////////////////////////
 
@@ -72,7 +71,6 @@ $(".list-group").on("blur", "textarea", function() {
 // get the textarea's current value/text
 var text = $(this)
   .val()
-  .trim();
 
 // get the parent ul's id attribute
 var status = $(this)
