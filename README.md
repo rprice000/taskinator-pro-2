@@ -41,6 +41,8 @@ There are no technologies that need to be installed for this application.
 ## Testing
 There are no testing dependencies for this application.
 
+All screen shots are located in: /assets/images/...
+
 ## Links
 GitHub Repo
 https://github.com/rprice000/taskinator-pro-2
