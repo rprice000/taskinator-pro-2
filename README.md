@@ -46,7 +46,7 @@ GitHub Repo
 https://github.com/rprice000/taskinator-pro-2
 
 Deployed GitHub Page
-
+https://rprice000.github.io/taskinator-pro-2/
 
 ## Version
 - 2.0.0
