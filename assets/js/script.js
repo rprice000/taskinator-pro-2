@@ -15,6 +15,8 @@ var createTask = function(taskText, taskDate, taskList) {
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
 
+  // check due date
+  auditTask(taskLi);
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
 };
@@ -224,6 +226,14 @@ $(".list-group").on("click", "span", function() {
     .val(date);
   $(this).replaceWith(dateInput);
 
+  dateInput.datepicker({
+    minDate: 1,
+    onClose: function() {
+      // when calendar is closed, force a "change" event on the dateInput
+      $(this).trigger("change");
+    }
+  });
+
   // automatically bring up the calendar
   dateInput.trigger("focus");
 });
@@ -252,6 +262,9 @@ $(".list-group").on("change", "input[type='text']", function() {
     .addClass("badge badge-primary badge-pill")
     .text(date);
     $(this).replaceWith(taskSpan);
+
+  // Pass task's <li> element into auditTask() to check new due date
+  auditTask($(taskSpan).closest(".list-group-item"));
 });
 
 //////////////////////////////////////////////////////////EVENT LISTENER TO CHANGE DATES CLICK OFF EDIT A TASK END////////////////////////
@@ -267,6 +280,36 @@ $("#remove-tasks").on("click", function() {
   saveTasks();
 });
 //////////////////////////////////////////////////////////REMOVE ALL TASKS FUNCTION END//////////////////////////////////////////////
+//////////////////////////////////////////////////////////MODAL DATE PICKER FUNCTION START//////////////////////////////////////////////
+$("#modalDueDate").datepicker({
+  minDate: 1
+});
+//////////////////////////////////////////////////////////MODAL DATE PICKER FUNCTION END//////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////CHANGE TASK BACKGROUND COLOR FUNCTION START////////////////////////////////
+var auditTask = function(taskEl) {
+  // get date from task element
+  var date = $(taskEl).find("span").text().trim();
+
+
+  // convert to moment object at 5:00pm
+  var time = moment(date, "L").set("hour", 17);
+
+  // remove any old classes from element
+  $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
+
+  // apply new class if task i near/over due date
+  if (moment().isAfter(time)) {
+    $(taskEl).addClass("list-group-item-danger");
+  }
+  else if (Math.abs(moment().diff(time, "days")) <= 2) {
+    $(taskEl).addClass("list-group-item-warning");
+  }
+}
+
+//////////////////////////////////////////////////////////CHANGE TASK BACKGROUND COLOR FUNCTION END////////////////////////////////
+
+
 
 // load tasks for the first time
 loadTasks();
