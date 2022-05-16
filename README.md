@@ -27,6 +27,7 @@ By completing this module, you'll learn how to:
 -  Add custom styling to a CSS framework
 -  Implement custom fonts and icons via CDNs
 
+![Starting Image](assets/images/mainApp-image.JPG)
 
 ## Installation
 There are no technologies that need to be installed for this application.
